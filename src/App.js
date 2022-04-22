@@ -12,21 +12,43 @@ import Header from "./components/Header/Header";
 
 const LoadGameScreen = Loading(GameScreen);
 
+const sliceText = (str) => {
+  return str.slice(0, str.lastIndexOf("."));
+};
+
 const App = () => {
-  const [imageURL, setImageURL] = useState("");
+  const [images, setImages] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const getImage = async () => {
-    const imageRef = storage.ref("image1.jpg");
-    const data = await imageRef.getDownloadURL();
-
-    setImageURL(data);
     setIsLoading(false);
+    const response = await storage.ref().child("images").listAll();
+    const imageLinks = response.items.map(async (imageRef) => {
+      const url = await imageRef.getDownloadURL();
+      const name = sliceText(imageRef.name);
+      return { url, name };
+    });
+    return Promise.all(imageLinks);
+  };
+
+  const storeImages = async () => {
+    const links = await getImage();
+    links.forEach((link) => {
+      setImages((state) => {
+        return {
+          ...state,
+          [link.name]: {
+            name: link.name,
+            url: link.url,
+          },
+        };
+      });
+    });
   };
 
   useEffect(() => {
     setIsLoading(true);
-    getImage();
+    storeImages();
   }, []);
 
   return (
@@ -35,11 +57,26 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />}>
-            <Route index element={<MainContent imageURL={imageURL} />} />
+            <Route index element={<MainContent images={images} />} />
             <Route
               path="convention"
               element={
-                <LoadGameScreen imageURL={imageURL} isLoading={isLoading} />
+                <LoadGameScreen
+                  image={images.Convention}
+                  isLoading={isLoading}
+                />
+              }
+            />
+            <Route
+              path="beach"
+              element={
+                <LoadGameScreen image={images.Beach} isLoading={isLoading} />
+              }
+            />
+            <Route
+              path="future"
+              element={
+                <LoadGameScreen image={images.Future} isLoading={isLoading} />
               }
             />
           </Route>
