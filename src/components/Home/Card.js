@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Card = ({ name, imageURL }) => {
+const Card = ({ name, url }) => {
   return (
-    <div>
+    <React.Fragment>
       <Link to={name}>
-        <img src={imageURL} alt={name} />
-        <h2>{name}</h2>
+        <img src={url} alt={name} />
+        <p>{name}</p>
       </Link>
-    </div>
+    </React.Fragment>
   );
 };
 
@@ -17,5 +17,5 @@ export default Card;
 
 Card.propTypes = {
   name: PropTypes.string,
-  imageURL: PropTypes.string,
+  url: PropTypes.string,
 };
