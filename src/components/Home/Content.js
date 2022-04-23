@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import styles from "../../styles/Home.module.css";
 import Card from "./Card";
+import CharacterContext from "../../characters/CharacterContext";
 
-const MainContent = ({ images }) => {
+const MainContent = () => {
+  const { images } = useContext(CharacterContext);
   const renderImages = () => {
     return Object.entries(images).map(([key, val]) => {
       return (
