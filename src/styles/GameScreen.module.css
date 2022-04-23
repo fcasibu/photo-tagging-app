@@ -1,0 +1,160 @@
+:root {
+  --top: 0;
+  --left: 0;
+}
+
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.characters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.characters > div {
+  display: grid;
+  place-items: center;
+  transition: opacity 300ms ease-in-out;
+}
+
+.characters img {
+  width: 50px;
+  height: 50px;
+}
+
+.characters h2 {
+  font-size: 0.8rem;
+}
+
+.game-title {
+  font-size: 2rem;
+}
+
+.game-image {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.3rem;
+  width: 1024px;
+  height: 720px;
+  margin: 1rem auto;
+}
+
+.game-image img {
+  width: inherit;
+  height: inherit;
+}
+
+.target {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+}
+
+.marker {
+  position: absolute;
+  top: -17px;
+  left: -20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 5px solid red;
+  z-index: 100;
+}
+
+.found {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: 20px;
+  border-radius: 0.2rem;
+  background: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  padding: 0.2rem;
+  animation: found 5s ease-in-out;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+@keyframes found {
+  from {
+    background: #fff;
+  }
+  to {
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.drawer {
+  position: relative;
+  transform: translateX(30px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background: white;
+  border-radius: 0.3rem;
+  width: max-content;
+  z-index: 10000;
+}
+
+.drawer > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.drawer img {
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.drawer h2 {
+  font-size: 1.1rem;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem;
+  transition: all 200ms ease-in-out;
+  pointer-events: none;
+}
+
+.drawer > div:hover h2 {
+  color: #e68a3f;
+}
+
+.drawer > div:not(:last-child) {
+  border-bottom: 2px solid red;
+}
+
+.target-found {
+  background: green;
+  pointer-events: none;
+}
+
+.wrong {
+  animation: wrong 500ms ease-in-out;
+}
+
+@keyframes wrong {
+  from {
+    background: red;
+  }
+  to {
+    background: none;
+  }
+}

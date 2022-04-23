@@ -3,14 +3,11 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { MemoryRouter as Router, Routes, Route } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
-import MainContent from "../Content";
-import Header from "../../Header/Header";
+import Card from "../Card";
 
-const mockImages = {
-  Beach: {
-    name: "Beach",
-    url: "",
-  },
+const mockCard = {
+  name: "Beach",
+  url: "",
 };
 
 describe("Home", () => {
@@ -18,7 +15,10 @@ describe("Home", () => {
     render(
       <Router initialEntries={["/"]}>
         <Routes>
-          <Route path="/" element={<MainContent images={mockImages} />}>
+          <Route
+            path="/"
+            element={<Card name={mockCard.name} url={mockCard.url} />}
+          >
             <Route path="Beach" element={<h1>Beach</h1>} />
           </Route>
         </Routes>
