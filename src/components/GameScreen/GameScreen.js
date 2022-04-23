@@ -21,11 +21,10 @@ const isAllCharactersFound = (targets) => {
 };
 
 const GameScreen = ({ url, name, data }) => {
-  const { showModal, startTime, resetTime, stopTime } =
-    useContext(CharacterContext);
+  const { showModal, startTime, resetTime } = useContext(CharacterContext);
   const [pos, setPos] = useState({});
   const [isFound, setIsFound] = useState(false);
-  const [didClick, setDidClick] = useState(false);
+  const [didClick, setDidClick] = useState(true);
   const [characters, setCharacters] = useState([]);
   const [targets, setTargets] = useState(data);
   const [foundTarget, setFoundTarget] = useState();
@@ -41,6 +40,7 @@ const GameScreen = ({ url, name, data }) => {
       const character = <FoundCharacter pos={pos} name={foundTarget} />;
       setCharacters((state) => [...state, character]);
       setTargets(newTargets(targets, foundTarget));
+      setDidClick(true);
     }
     setIsFound(false);
 
@@ -49,10 +49,12 @@ const GameScreen = ({ url, name, data }) => {
 
   const getPos = (event) => {
     const { posX: x, posY: y } = getPosition(event);
+
     setPos({ x, y });
+    setDidClick(!didClick);
+
     targetRef.current.style.setProperty("left", `${x}px`);
     targetRef.current.style.setProperty("top", `${y}px`);
-    setDidClick(!didClick);
   };
 
   const checkTarget = (targetName) => {
@@ -67,7 +69,6 @@ const GameScreen = ({ url, name, data }) => {
   const renderTopContent = () => {
     return (
       <div className={styles["top-content"]}>
-        <Modal />
         <h1 className={styles["game-title"]}>{name}</h1>
         <div className={styles.characters}>
           {Object.entries(targets).map(([key, val]) => {
@@ -85,6 +86,7 @@ const GameScreen = ({ url, name, data }) => {
 
   return (
     <React.Fragment>
+      <Modal />
       {renderTopContent()}
       <div className={styles["game-image"]}>
         {characters.map((el, index) => {
@@ -94,7 +96,7 @@ const GameScreen = ({ url, name, data }) => {
         <div
           ref={targetRef}
           className={styles.target}
-          style={didClick ? { display: "block" } : { display: "none" }}
+          style={!didClick ? { display: "block" } : { display: "none" }}
         >
           <CharacterDrawer
             checkTarget={checkTarget}
