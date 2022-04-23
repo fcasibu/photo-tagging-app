@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import getPosition from "./helpers/getPosition";
 import CharacterDrawer from "./helpers/CharacterDrawer";
 import checkAdjacentPosition from "./helpers/checkAdjacentPosition";
 import FoundCharacter from "./helpers/FoundCharacter";
 import styles from "../../styles/GameScreen.module.css";
+import Modal from "../Form/Modal";
+import CharacterContext from "../../characters/CharacterContext";
 
 const newTargets = (targets, foundTarget) => {
   const copy = JSON.parse(JSON.stringify(targets));
@@ -12,14 +14,27 @@ const newTargets = (targets, foundTarget) => {
   return copy;
 };
 
+const isAllCharactersFound = (targets) => {
+  return Object.values(targets).every((el) => {
+    return el.found === true;
+  });
+};
+
 const GameScreen = ({ url, name, data }) => {
+  const { showModal, startTime, resetTime, stopTime } =
+    useContext(CharacterContext);
   const [pos, setPos] = useState({});
   const [isFound, setIsFound] = useState(false);
   const [didClick, setDidClick] = useState(false);
   const [characters, setCharacters] = useState([]);
   const [targets, setTargets] = useState(data);
   const [foundTarget, setFoundTarget] = useState();
-  const targetRef = useRef();
+  const targetRef = useRef(null);
+
+  useEffect(() => {
+    resetTime();
+    startTime();
+  }, []);
 
   useEffect(() => {
     if (isFound) {
@@ -27,8 +42,9 @@ const GameScreen = ({ url, name, data }) => {
       setCharacters((state) => [...state, character]);
       setTargets(newTargets(targets, foundTarget));
     }
-
     setIsFound(false);
+
+    showModal(isAllCharactersFound(targets));
   }, [isFound]);
 
   const getPos = (event) => {
@@ -51,6 +67,7 @@ const GameScreen = ({ url, name, data }) => {
   const renderTopContent = () => {
     return (
       <div className={styles["top-content"]}>
+        <Modal />
         <h1 className={styles["game-title"]}>{name}</h1>
         <div className={styles.characters}>
           {Object.entries(targets).map(([key, val]) => {
