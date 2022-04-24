@@ -31,10 +31,6 @@ const GameScreen = ({ url, name, data }) => {
   const [foundTarget, setFoundTarget] = useState();
   const targetRef = useRef(null);
 
-  // useEffect(() => {
-  //   setFormattedTime(digitalTime);
-  // }, [digitalTime]);
-
   useEffect(() => {
     resetTime();
     startTime();

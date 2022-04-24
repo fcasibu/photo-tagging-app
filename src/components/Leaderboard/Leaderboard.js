@@ -39,7 +39,6 @@ const Leaderboard = () => {
     };
 
     fetchLeaderboard();
-    tabRef.current.children[0].classList.add(styles.active);
   }, []);
 
   const tabChangeHandler = (e) => {
