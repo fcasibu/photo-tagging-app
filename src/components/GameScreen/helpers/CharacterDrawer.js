@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styles from "../../../styles/GameScreen.module.css";
 
 const CharacterDrawer = ({ checkTarget, characters, foundTarget }) => {
-  const displayWrong = (e) => {
+  const wrongTarget = (e) => {
     if (!foundTarget) {
       e.target.classList.add(styles.wrong);
       setTimeout(() => {
@@ -14,7 +14,7 @@ const CharacterDrawer = ({ checkTarget, characters, foundTarget }) => {
 
   const clickHandler = (e) => {
     checkTarget(e.target.textContent);
-    displayWrong(e);
+    wrongTarget(e);
   };
 
   const renderCharacters = () => {
@@ -32,9 +32,7 @@ const CharacterDrawer = ({ checkTarget, characters, foundTarget }) => {
     });
   };
 
-  return (
-    <div className={styles.drawer}>{characters && renderCharacters()}</div>
-  );
+  return <div className={styles.drawer}>{renderCharacters()}</div>;
 };
 
 export default CharacterDrawer;
