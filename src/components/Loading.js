@@ -5,10 +5,9 @@ import { firestore } from "../firebase";
 
 const Loading = (Component) => {
   return function checkLoad() {
-    const { images, selectedMap } = useContext(CharacterContext);
+    const { images, selectedMap, backup } = useContext(CharacterContext);
     const [characters, setCharacters] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    const backup = window.location.href.split("/").pop();
 
     useEffect(() => {
       const fetchData = async () => {

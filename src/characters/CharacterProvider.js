@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { formatDuration, intervalToDuration } from "date-fns";
 import PropTypes from "prop-types";
 import CharacterContext from "./CharacterContext";
 import { storage } from "../firebase";
 
 const sliceText = (str) => {
   return str.slice(0, str.lastIndexOf("."));
-};
-
-const formattedTime = (time) => {
-  return formatDuration(intervalToDuration({ start: 0, end: time * 1000 }));
 };
 
 const CharacterProvider = ({ children }) => {
@@ -19,6 +14,7 @@ const CharacterProvider = ({ children }) => {
   const [images, setImages] = useState({});
   const [isFinished, setIsFinished] = useState(false);
   const intervalRef = useRef();
+  const backup = window.location.href.split("/").pop();
 
   const getImage = async () => {
     const response = await storage.ref().child("images").listAll();
@@ -72,7 +68,7 @@ const CharacterProvider = ({ children }) => {
   useEffect(() => {
     if (isFinished) {
       stopTime();
-      setEndTime(formattedTime(timer));
+      setEndTime(timer);
     }
   }, [isFinished]);
 
@@ -92,6 +88,7 @@ const CharacterProvider = ({ children }) => {
     selectedMap,
     isFinished,
     images,
+    backup,
     endTime,
     startTime,
     stopTime,
