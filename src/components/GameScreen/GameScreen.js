@@ -7,6 +7,7 @@ import FoundCharacter from "./helpers/FoundCharacter";
 import styles from "../../styles/GameScreen.module.css";
 import Modal from "../Form/Modal";
 import CharacterContext from "../../characters/CharacterContext";
+import { digitalFormat } from "../../helper/formatTime";
 
 const newTargets = (targets, foundTarget) => {
   const copy = JSON.parse(JSON.stringify(targets));
@@ -21,7 +22,8 @@ const isAllCharactersFound = (targets) => {
 };
 
 const GameScreen = ({ url, name, data }) => {
-  const { showModal, startTime, resetTime } = useContext(CharacterContext);
+  const { showModal, startTime, resetTime, digitalTime } =
+    useContext(CharacterContext);
   const [pos, setPos] = useState({});
   const [isFound, setIsFound] = useState(false);
   const [didClick, setDidClick] = useState(true);
@@ -29,6 +31,10 @@ const GameScreen = ({ url, name, data }) => {
   const [targets, setTargets] = useState(data);
   const [foundTarget, setFoundTarget] = useState();
   const targetRef = useRef(null);
+
+  // useEffect(() => {
+  //   setFormattedTime(digitalTime);
+  // }, [digitalTime]);
 
   useEffect(() => {
     resetTime();
@@ -70,6 +76,7 @@ const GameScreen = ({ url, name, data }) => {
     return (
       <div className={styles["top-content"]}>
         <h1 className={styles["game-title"]}>{name}</h1>
+        <div className={styles.timer}>{digitalTime}</div>
         <div className={styles.characters}>
           {Object.entries(targets).map(([key, val]) => {
             return (

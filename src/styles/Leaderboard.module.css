@@ -30,6 +30,7 @@
   display: grid;
   place-items: center;
   border: 1px solid #333;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   width: 50ch;
   margin: 0 auto;
 }

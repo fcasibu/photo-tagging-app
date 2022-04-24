@@ -36,6 +36,11 @@
   font-size: 2rem;
 }
 
+.timer {
+  font-size:2rem;
+  font-weight:bold;
+}
+
 .game-image {
   position: relative;
   display: flex;

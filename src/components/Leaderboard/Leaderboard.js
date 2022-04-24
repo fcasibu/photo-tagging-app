@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "../../styles/Leaderboard.module.css";
 import { firestore } from "../../firebase";
-import formatTime from "../../helper/formatTime";
+import { formattedTime } from "../../helper/formatTime";
 
 const filterLeaderboard = (array, name, tab) => {
   tab.classList.add(styles.active);
@@ -15,7 +15,7 @@ const removeActive = (array) => {
 };
 
 const compareFunction = (a, b) => {
-  return a.time - +b.time;
+  return a.time - b.time;
 };
 
 const Leaderboard = () => {
@@ -54,7 +54,7 @@ const Leaderboard = () => {
           <div className={styles["leaderboard-col"]}>
             <p>
               <strong>{item.name}</strong> took{" "}
-              <strong>{formatTime(item.time)}</strong> to complete
+              <strong>{formattedTime(item.time)}</strong> to complete
             </p>
           </div>
         </div>

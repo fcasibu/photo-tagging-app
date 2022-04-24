@@ -1,16 +1,18 @@
 import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import CharacterContext from "../../characters/CharacterContext";
 import styles from "../../styles/Form.module.css";
 import { firestore } from "../../firebase";
-import formatTime from "../../helper/formatTime";
+import { formattedTime } from "../../helper/formatTime";
 
 const Backdrop = ({ closeModal }) => {
-  return <div className={styles.backdrop} onClick={closeModal}></div>;
+  return <div className={styles.backdrop}></div>;
 };
 
 const Form = ({ closeModal, endTime, resetTime, map }) => {
+  const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [name, setName] = useState("");
   const leaderboardRef = firestore.collection("leaderboard");
@@ -29,12 +31,16 @@ const Form = ({ closeModal, endTime, resetTime, map }) => {
     resetTime();
     setName("");
     setSubmitting(false);
+    navigate("/leaderboard");
   };
 
   return (
     <div className={styles.form}>
-      <h2>Good job!</h2>
-      <h3>Your time: {formatTime(endTime)}</h3>
+      <h2>
+        Good job!
+        <span onClick={closeModal}>X</span>
+      </h2>
+      <h3>Your time: {formattedTime(endTime)}</h3>
       <form onSubmit={submitHandler}>
         <label htmlFor="name">Enter your name: </label>
         <input

@@ -1,7 +1,12 @@
-import { formatDuration, intervalToDuration } from "date-fns";
+import { formatDuration, intervalToDuration, format } from "date-fns";
 
 const formattedTime = (time) => {
   return formatDuration(intervalToDuration({ start: 0, end: time * 1000 }));
 };
 
-export default formattedTime;
+const digitalFormat = (time) => {
+  const digitalTime = format(new Date(time * 1000), "mm:ss");
+  return digitalTime;
+};
+
+export { formattedTime, digitalFormat };

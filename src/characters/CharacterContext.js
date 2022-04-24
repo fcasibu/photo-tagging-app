@@ -1,7 +1,8 @@
 import React from "react";
 
 const CharacterContext = React.createContext({
-  endTime: "",
+  endTime: 0,
+  digitalTime: "",
   selectedMap: "",
   images: [],
   isFinished: false,

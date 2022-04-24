@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import CharacterContext from "./CharacterContext";
 import { storage } from "../firebase";
+import { digitalFormat } from "../helper/formatTime";
 
 const sliceText = (str) => {
   return str.slice(0, str.lastIndexOf("."));
@@ -9,12 +10,17 @@ const sliceText = (str) => {
 
 const CharacterProvider = ({ children }) => {
   const [timer, setTimer] = useState(0);
-  const [endTime, setEndTime] = useState("");
+  const [digitalTime, setDigitalTime] = useState("");
+  const [endTime, setEndTime] = useState(0);
   const [selectedMap, setSelectedMap] = useState("");
   const [images, setImages] = useState({});
   const [isFinished, setIsFinished] = useState(false);
   const intervalRef = useRef();
   const backup = window.location.href.split("/").pop();
+
+  useEffect(() => {
+    setDigitalTime(digitalFormat(timer));
+  }, [timer]);
 
   const getImage = async () => {
     const response = await storage.ref().child("images").listAll();
@@ -86,6 +92,7 @@ const CharacterProvider = ({ children }) => {
     images,
     backup,
     endTime,
+    digitalTime,
     startTime,
     stopTime,
     resetTime,
