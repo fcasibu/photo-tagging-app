@@ -1,7 +1,49 @@
-.leaderboard  {
-
+.leaderboard h1 {
+  text-align: center;
 }
 
-.leaderboard h1 {
-  text-align:center;
+.navbar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.navbar ul {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar ul li {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.navbar ul li:hover {
+  color: gold;
+}
+
+.active {
+  color: gold;
+}
+
+.leaderboard-list {
+  display: grid;
+  place-items: center;
+  border: 1px solid #333;
+  width: 50ch;
+  margin: 0 auto;
+}
+
+.leaderboard-col {
+  display: flex;
+  gap: 5rem;
+}
+
+.leaderboard-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5rem;
+  width: 100%;
+  outline: 1px solid #333;
+  padding: 0.5rem;
 }
