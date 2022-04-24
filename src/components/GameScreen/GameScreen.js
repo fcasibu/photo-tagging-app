@@ -7,7 +7,6 @@ import FoundCharacter from "./helpers/FoundCharacter";
 import styles from "../../styles/GameScreen.module.css";
 import Modal from "../Form/Modal";
 import CharacterContext from "../../characters/CharacterContext";
-import { digitalFormat } from "../../helper/formatTime";
 
 const newTargets = (targets, foundTarget) => {
   const copy = JSON.parse(JSON.stringify(targets));

@@ -7,7 +7,7 @@ import styles from "../../styles/Form.module.css";
 import { firestore } from "../../firebase";
 import { formattedTime } from "../../helper/formatTime";
 
-const Backdrop = ({ closeModal }) => {
+const Backdrop = () => {
   return <div className={styles.backdrop}></div>;
 };
 
@@ -77,7 +77,7 @@ const Modal = () => {
             document.getElementById("modal")
           )}
           {ReactDOM.createPortal(
-            <Backdrop closeModal={closeModal} />,
+            <Backdrop />,
             document.getElementById("backdrop")
           )}
         </div>
