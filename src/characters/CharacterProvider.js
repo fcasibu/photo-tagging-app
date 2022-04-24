@@ -26,10 +26,6 @@ const CharacterProvider = ({ children }) => {
     return Promise.all(imageLinks);
   };
 
-  useEffect(() => {
-    console.log(timer);
-  }, [timer]);
-
   const storeImages = async () => {
     const links = await getImage();
     links.forEach((link) => {
